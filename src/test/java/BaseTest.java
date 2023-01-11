@@ -13,7 +13,7 @@ public class BaseTest {
          * Настройки браузера и драйвера
          */
         System.setProperty("WebDriver.chrome.driver", "C:\\Users\\koskv\\ScooterYandexProject\\ChromeDriver.exe");
-        WebDriverManager.chromedriver().setup();
+     //   WebDriverManager.chromedriver().setup();
         // Configuration.baseUrl = "https://the-internet.herokuapp.com/";
         // System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
         Configuration.browser = "chrome";
