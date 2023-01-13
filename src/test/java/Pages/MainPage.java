@@ -1,23 +1,23 @@
 package Pages;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
 
 import static com.codeborne.selenide.Selenide.$x;
 
 public class MainPage {
     private final SelenideElement header = $x("//div[contains(text(),\"Самокат \")]");
+    private final SelenideElement mainHeaderlogo = $x("//a[contains(@class,\"Header_LogoScooter\")]");
     private final SelenideElement orderButtonHeader = $x("//div[contains(@class,\"Header_Nav\")]/button[contains(text(),\"Заказать\")]");
     private final SelenideElement orderStatusButton = $x("//button[contains(text(),\"Статус заказа\")]");
+    private final SelenideElement logoScooter = $x("//a[contains(@class,\"Header_LogoScooter\")]");
+    private final SelenideElement logoYandex = $x("//a[contains(@class,\"Header_LogoYandex\")]");
     private final SelenideElement questionsAbout = $x("//div[contains(text(),\"Вопросы о важном\")]");
 
 
-
+    private final String WRONG_ORDER = "1234";
+    private final String ORDER_NUM = "408128";
     // Вопросы - элементы ///////////////////////////////////////////////
     private final SelenideElement question0 = $x("//div[@id=\"accordion__heading-0\"]");
     private final SelenideElement question1 = $x("//div[@id=\"accordion__heading-1\"]");
@@ -57,18 +57,51 @@ public class MainPage {
         header.shouldBe(Condition.visible);
     }
 
+    public MainPage checkLogoHref() {
+        header.click();
+        return this;
+    }
+
+    /**
+     * Метод вводит НЕ ВЕРНЫЙ номер заказа и выполняет поиск
+     * @return
+     */
+    public WrongOrderSearchPage statusErrorOrderClick(){
+        $x("//button[contains(@class,\"Header_Link\")][contains(text(),\"Статус\")]").click();
+        $x("//input[contains(@class,\"Input_Input\")][contains(@placeholder,\"Введите номер\")]").sendKeys(WRONG_ORDER);
+        $x("//button[contains(@class,\"Header_Button\")][contains(text(),\"Go!\")]").click();
+        return new WrongOrderSearchPage();
+    }
+
+    /**
+     * Метод вводит ВЕРНЫЙ номер заказа и выполняет поиск
+     * @return
+     */
+    public StatusOrderPage statusOrderClick(){
+        $x("//button[contains(@class,\"Header_Link\")][contains(text(),\"Статус\")]").click();
+        $x("//input[contains(@class,\"Input_Input\")][contains(@placeholder,\"Введите номер\")]").sendKeys(ORDER_NUM);
+        $x("//button[contains(@class,\"Header_Button\")][contains(text(),\"Go!\")]").click();
+        return new StatusOrderPage();
+    }
+
+    public YandexMainPage yandexLogoClick(){
+        logoYandex.click();
+        return new YandexMainPage();
+    }
+
     public String getHeader(){
         return header.getText();
     }
+    public Boolean getHeaderPresents(){
+        return header.exists();
+    }
 
-    public PageOrder makeOrderButtonClick () {
+
+    public OrderPage makeOrderButtonClick () {
         orderButtonHeader.click();
-        return new PageOrder();
+        return new OrderPage();
     }
 
-    public void statusOrder (){
-        orderStatusButton.click();
-    }
 
     /**
      * Метод возвращает True или False при сравнении.

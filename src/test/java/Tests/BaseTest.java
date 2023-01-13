@@ -30,7 +30,7 @@ public class BaseTest {
 
     public void setUp() {
        // WebDriverManager.chromedriver().setup(); // Установили настройки драйвера
-      //  Configuration.browser = "chrome";
+       // Configuration.browser = "chrome";
         WebDriverManager.firefoxdriver().setup(); // Установили настройки драйвера
         Configuration.browser = "firefox";
         Configuration.driverManagerEnabled = true;

@@ -8,43 +8,58 @@ import org.junit.jupiter.api.condition.OS;
 
 
 public class Tests extends BaseTest{
-    private final static String NAME_BUYER = "Иван";
-    private final static String LAST_NAME_BUYER = "Вострецов";
-    private final static String ADRESS_BUYER = "Москва, Белореченская, д.98";
-   // private final static String METRO_BUYER = "Курская";
-    private final static String PHONE_BUYER = "+79785547896";
-    private final static String EXPECTED_PRICE_AND_PAY = "Сутки — 400 рублей. Оплата курьеру — наличными или картой.";
-
 
     @Test
-    @EnabledOnOs({ OS.WINDOWS }) // тест запустится только на WIndows
+    @EnabledOnOs({ OS.WINDOWS }) // тест запустится только на Windows
     public void checkMainPage(){
-
+        Assert.assertTrue(new MainPage(BASE_URL).getHeader().contains("Самокат"));
+    }
+    /**
+     * Проверка перехода по Самокат Logo на главную страницу
+     */
+    @Test
+    public void checkSamokatLogoHref(){
         MainPage mainPage = new MainPage(BASE_URL);
-        Boolean contains = mainPage.getHeader().contains("Самокат");
-        Assert.assertTrue(contains);
+        mainPage.checkLogoHref();
+        System.out.println(mainPage.getHeaderPresents());
+        Assert.assertTrue("Открылась стратовая страница",mainPage.getHeaderPresents());
+    }
+    /**
+     * Проверка перехода по Yandex logo на сайт Yandex Dzen
+     */
+    @Test
+    public void checkYandexLogoHref(){
+        Assert.assertTrue("Открылся Yandex Dzen",new MainPage(BASE_URL).yandexLogoClick().zdenLogoExist());
     }
 
     /**
-     * Проверка перехода по логотипу на главную страницу
+     * Проверка поиска НЕ ВЕРНОГО номера заказа
      */
     @Test
-    public void checkSamokatLogo(){
-        MainPage mainPage = new MainPage(BASE_URL);
-
+    public void checkSearchWrongOrderError(){
+        Assert.assertTrue(new MainPage(BASE_URL).statusErrorOrderClick().checkErrorOrder());
     }
 
     /**
-     * Проверка формирования заказа. Ошибка на сайте, кнопка подтверждения заказа не кликабельна.
+     * Проверка поиска ВЕРНОГО номера заказа
      */
     @Test
-    public void makeOrder(){
+    public void checkSearchOrder(){
+        Assert.assertTrue(new MainPage(BASE_URL).statusOrderClick().checkPageExist());
+    }
+
+    /**
+     * Проверка формирования заказа. Ошибка на сайте, кнопка подтверждения заказа не кликабельна в Chrome
+     */
+    @Test
+    public void makeOrderCustomer1(){
         MainPage mainPage = new MainPage(BASE_URL);
         mainPage.makeOrderButtonClick();
-        PageOrder pageOrder = new PageOrder();
-        pageOrder.makeOrder(NAME_BUYER,LAST_NAME_BUYER,ADRESS_BUYER,PHONE_BUYER);
+        OrderPage pageOrder = new OrderPage();
+        pageOrder.makeOrderCustomers("Покупатель 1");
+       // pageOrder.makeOrder(NAME_BUYER,LAST_NAME_BUYER,ADRESS_BUYER,PHONE_BUYER);
         AboutOrderPage aboutOrderPage = new AboutOrderPage();
-        aboutOrderPage.enterDataInOrder("Привезите самокат к подъезду");
+        aboutOrderPage.enterDataInOrder();
         ConfirmOrderPage confirmOrder = new ConfirmOrderPage();
         confirmOrder.confirm();
         SuccessOrderPage successOrderPage = new SuccessOrderPage();
@@ -53,5 +68,6 @@ public class Tests extends BaseTest{
         Assert.assertTrue("Заказ сформирован успешно", successOrderPage.getOrderHeader().contains("Заказ оформлен"));
         delay(1000);
     }
+
 
 }
