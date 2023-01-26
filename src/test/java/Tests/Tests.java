@@ -1,6 +1,7 @@
 package Tests;
 
 import Pages.*;
+import com.codeborne.selenide.Condition;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.condition.EnabledOnOs;
@@ -14,6 +15,7 @@ public class Tests extends BaseTest{
     public void checkMainPage(){
         Assert.assertTrue(new MainPage(BASE_URL).getHeader().contains("Самокат"));
     }
+
     /**
      * Проверка перехода по Самокат Logo на главную страницу
      */
@@ -21,15 +23,17 @@ public class Tests extends BaseTest{
     public void checkSamokatLogoHref(){
         MainPage mainPage = new MainPage(BASE_URL);
         mainPage.checkLogoHref();
-        System.out.println(mainPage.getHeaderPresents());
-        Assert.assertTrue("Открылась стратовая страница",mainPage.getHeaderPresents());
+        Assert.assertTrue("Не открылась стратовая страница",mainPage.header().isDisplayed());
     }
+
     /**
      * Проверка перехода по Yandex logo на сайт Yandex Dzen
      */
     @Test
     public void checkYandexLogoHref(){
-        Assert.assertTrue("Открылся Yandex Dzen",new MainPage(BASE_URL).yandexLogoClick().zdenLogoExist());
+       // Assert.assertFalse("Не открылся Yandex Dzen",new MainPage(BASE_URL).yandexLogoClick().dzenLogoExist());
+
+        Assert.assertEquals("Не открылся Yandex Dzen", "Найти",new MainPage(BASE_URL).yandexLogoClick().getFindButton());
     }
 
     /**
@@ -45,6 +49,7 @@ public class Tests extends BaseTest{
      */
     @Test
     public void checkSearchOrder(){
+
         Assert.assertTrue(new MainPage(BASE_URL).statusOrderClick().checkPageExist());
     }
 
@@ -57,6 +62,7 @@ public class Tests extends BaseTest{
         mainPage.makeOrderButtonClick();
         OrderPage pageOrder = new OrderPage();
         pageOrder.makeOrderCustomers("Покупатель 1");
+        delay(3000);
        // pageOrder.makeOrder(NAME_BUYER,LAST_NAME_BUYER,ADRESS_BUYER,PHONE_BUYER);
         AboutOrderPage aboutOrderPage = new AboutOrderPage();
         aboutOrderPage.enterDataInOrder();
@@ -65,8 +71,8 @@ public class Tests extends BaseTest{
         SuccessOrderPage successOrderPage = new SuccessOrderPage();
         System.out.println(successOrderPage.getOrderHeader());
         //проверка на то, что окно подтверждения заказа, при нажатии на копку "Да" закрыто.
-        Assert.assertTrue("Заказ сформирован успешно", successOrderPage.getOrderHeader().contains("Заказ оформлен"));
-        delay(1000);
+        Assert.assertTrue("Заказ не сформирован, ошибка", successOrderPage.getOrderHeader().contains("Заказ оформлен"));
+
     }
 
 

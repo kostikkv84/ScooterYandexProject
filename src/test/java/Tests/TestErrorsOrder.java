@@ -23,6 +23,7 @@ public class TestErrorsOrder extends BaseTest{
      * Проверка при вводе НЕ ВЕРНОГО адреса.
      */
     @Test
+
     public void checkAddressError(){
         Assert.assertTrue(new MainPage(BASE_URL).makeOrderButtonClick().checkErrorsMsg("Проверка адреса"));
     }

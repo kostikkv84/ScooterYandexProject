@@ -17,19 +17,19 @@ public class ConfirmOrderPage {
     public ConfirmOrderPage() {
         confirmOrderPageHeader.shouldBe(Condition.visible);
     }
-    public SuccessOrderPage confirm () {
+
+    public SuccessOrderPage confirm() {
         confirmOrder.sendKeys(Keys.ENTER);
-        return  new SuccessOrderPage();
+        return new SuccessOrderPage();
     }
 
-    public AboutOrderPage cancellation () {
+    public AboutOrderPage cancellation() {
         cancellationOrder.click();
         return new AboutOrderPage();
     }
 
 
-
-    public Boolean orderHeaderPresent () {
+    public Boolean orderHeaderPresent() {
         return confirmOrderPageHeader.isDisplayed();
     }
 }

@@ -7,7 +7,11 @@ import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class MainPage {
-    private final SelenideElement header = $x("//div[contains(text(),\"Самокат \")]");
+    public SelenideElement header () {
+        return $x("//div[contains(text(),\"Самокат \")]");     }
+
+
+
     private final SelenideElement mainHeaderlogo = $x("//a[contains(@class,\"Header_LogoScooter\")]");
     private final SelenideElement orderButtonHeader = $x("//div[contains(@class,\"Header_Nav\")]/button[contains(text(),\"Заказать\")]");
     private final SelenideElement orderStatusButton = $x("//button[contains(text(),\"Статус заказа\")]");
@@ -16,8 +20,8 @@ public class MainPage {
     private final SelenideElement questionsAbout = $x("//div[contains(text(),\"Вопросы о важном\")]");
 
 
-    private final String WRONG_ORDER = "1234";
-    private final String ORDER_NUM = "408128";
+    private final static String WRONG_ORDER = "1234";
+    private final static String ORDER_NUM = "408128";
     // Вопросы - элементы ///////////////////////////////////////////////
     private final SelenideElement question0 = $x("//div[@id=\"accordion__heading-0\"]");
     private final SelenideElement question1 = $x("//div[@id=\"accordion__heading-1\"]");
@@ -48,17 +52,21 @@ public class MainPage {
     private final String answer6 = "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.";
     private final String answer7 = "Да, обязательно. Всем самокатов! И Москве, и Московской области.";
 
+
+
+
+
     /**
      * Конструктор, где сразу задан URL и проверяется, что главная страница загрузилась.
      * @param url
      */
     public MainPage(String url) {
         Selenide.open(url);
-        header.shouldBe(Condition.visible);
+        header().shouldBe(Condition.visible);
     }
 
     public MainPage checkLogoHref() {
-        header.click();
+        header().click();
         return this;
     }
 
@@ -90,10 +98,10 @@ public class MainPage {
     }
 
     public String getHeader(){
-        return header.getText();
+        return header().getText();
     }
     public Boolean getHeaderPresents(){
-        return header.exists();
+        return header().exists();
     }
 
 
