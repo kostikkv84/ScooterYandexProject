@@ -19,7 +19,7 @@ public class ConfirmOrderPage {
     }
 
     public SuccessOrderPage confirm() {
-        confirmOrder.sendKeys(Keys.ENTER);
+        confirmOrder.shouldBe(Condition.visible).sendKeys(Keys.ENTER);
         return new SuccessOrderPage();
     }
 

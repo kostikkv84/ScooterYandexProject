@@ -4,14 +4,18 @@ import Pages.*;
 import com.codeborne.selenide.Condition;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
+
+import static java.lang.Thread.sleep;
 
 
 public class Tests extends BaseTest{
 
     @Test
-    @EnabledOnOs({ OS.WINDOWS }) // тест запустится только на Windows
+    @DisplayName("Наличие логотипа Самокат")
+   // @EnabledOnOs({ OS.WINDOWS }) // тест запустится только на Windows
     public void checkMainPage(){
         Assert.assertTrue(new MainPage(BASE_URL).getHeader().contains("Самокат"));
     }
@@ -20,6 +24,7 @@ public class Tests extends BaseTest{
      * Проверка перехода по Самокат Logo на главную страницу
      */
     @Test
+    @DisplayName("Проверка ссылки по лого Самокат")
     public void checkSamokatLogoHref(){
         MainPage mainPage = new MainPage(BASE_URL);
         mainPage.checkLogoHref();
@@ -27,13 +32,19 @@ public class Tests extends BaseTest{
     }
 
     /**
-     * Проверка перехода по Yandex logo на сайт Yandex Dzen
+     * Проверка блокировки перехода по Yandex logo на сайт Yandex Dzen.
+     * Блокировщик - rel="noopener noreferrer"
      */
     @Test
-    public void checkYandexLogoHref(){
-       // Assert.assertFalse("Не открылся Yandex Dzen",new MainPage(BASE_URL).yandexLogoClick().dzenLogoExist());
+    @DisplayName("Проверка блокировки открытия Yandex")
+    public void checkYandexLogoHref() throws InterruptedException {
+        MainPage mainPage = new MainPage(BASE_URL);
+        mainPage.yandexLogoClick();
+        YandexMainPage yandexPage = new YandexMainPage();
+        Boolean result = yandexPage.dzenLogoExist();
+        Assert.assertFalse("Yandex Dzen открылся",result);
 
-        Assert.assertEquals("Не открылся Yandex Dzen", "Найти",new MainPage(BASE_URL).yandexLogoClick().getFindButton());
+      //  Assert.assertEquals("Не открылся Yandex Dzen", "Найти",new MainPage(BASE_URL).yandexLogoClick().getFindButton());
     }
 
     /**

@@ -52,26 +52,25 @@ public class OrderPage {
      * @return
      */
     public AboutOrderPage makeOrder(String name, String lastName, String address, String phone) {
-        nameBuyer.sendKeys(name);
-        lastNameBuyer.sendKeys(lastName);
-        addressBuyer.sendKeys(address);
-        chooseMetro.sendKeys(Keys.DOWN);
-        chooseMetro.sendKeys(Keys.ENTER);
-        phoneBuyer.sendKeys(phone);
-        nextButton.click();
+        nameBuyer.shouldBe(Condition.visible).sendKeys(name);
+        lastNameBuyer.shouldBe(Condition.visible).sendKeys(lastName);
+        addressBuyer.shouldBe(Condition.visible).sendKeys(address);
+        chooseMetro.shouldBe(Condition.visible).sendKeys(Keys.DOWN);
+        chooseMetro.shouldBe(Condition.visible).sendKeys(Keys.ENTER);
+        phoneBuyer.shouldBe(Condition.visible).sendKeys(phone);
+        nextButton.shouldBe(Condition.visible).click();
         return new AboutOrderPage();
     }
 
     public void makeOrderCustomers(String customer) {
-        switch (customer) {
-            case "Покупатель 1":
-                makeOrder(NAME_BUYER1, LAST_NAME_BUYER1, ADRESS_BUYER1, PHONE_BUYER1);
+        if ("Покупатель 1".equals(customer)) {
+            makeOrder(NAME_BUYER1, LAST_NAME_BUYER1, ADRESS_BUYER1, PHONE_BUYER1);
         }
     }
 
     public boolean checkErrors(SelenideElement bayerData, String errorMessage, SelenideElement errorInputDataMsg) {
-        bayerData.sendKeys(WRONG_DATA);
-        bayerData.sendKeys(Keys.TAB);// вписываем в поле ошибочные данные для получения ошибки
+        bayerData.shouldBe(Condition.visible).sendKeys(WRONG_DATA);
+        bayerData.shouldBe(Condition.visible).sendKeys(Keys.TAB);// вписываем в поле ошибочные данные для получения ошибки
         //errorInputDataMsg.should(Condition.exist).shouldBe(Condition.visible); // проверяем наличие элемента сообщения с ошибкой.
         //Проверяем: наличие элемента ответа, достаем текст, сравниваем его текст с ожидаемым текстом.
         return errorInputDataMsg.should(Condition.exist).shouldBe(Condition.visible).getText().contains(errorMessage);

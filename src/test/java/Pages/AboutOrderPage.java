@@ -23,14 +23,14 @@ public class AboutOrderPage {
     }
 
     public ConfirmOrderPage enterDataInOrder() {
-        dataDeliveryInput.click();
-        nextDayDelivery.click();
-        chooseDeadLineOrder.click();
-        chooseDayCountOrder.click();
-        blackScooter.click();
-        greyScooter.click();
-        courierMsg.sendKeys(COURIER_COMMENT);
-        successOrder.click();
+        dataDeliveryInput.shouldBe(Condition.visible).click();
+        nextDayDelivery.shouldBe(Condition.visible).click();
+        chooseDeadLineOrder.shouldBe(Condition.visible).click();
+        chooseDayCountOrder.shouldBe(Condition.visible).click();
+        blackScooter.shouldBe(Condition.visible).click();
+        greyScooter.shouldBe(Condition.visible).click();
+        courierMsg.shouldBe(Condition.visible).sendKeys(COURIER_COMMENT);
+        successOrder.shouldBe(Condition.visible).click();
         return new ConfirmOrderPage();
     }
 }

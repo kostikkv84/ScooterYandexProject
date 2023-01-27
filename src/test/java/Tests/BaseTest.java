@@ -29,10 +29,10 @@ public class BaseTest {
     final static String BASE_URL = "https://qa-scooter.praktikum-services.ru/";
 
     public void setUp() {
-        WebDriverManager.firefoxdriver().setup(); // Установили настройки драйвера
-        Configuration.browser = "firefox";
-     //   WebDriverManager.firefoxdriver().setup(); // Установили настройки драйвера
+       // WebDriverManager.firefoxdriver().setup(); // Установили настройки драйвера
       //  Configuration.browser = "firefox";
+        WebDriverManager.chromedriver().setup(); // Установили настройки драйвера
+        Configuration.browser = "chrome";
         Configuration.driverManagerEnabled = true;
         Configuration.browserSize = "1920x1080";
         Configuration.headless = false;
