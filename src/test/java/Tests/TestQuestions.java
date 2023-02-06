@@ -6,11 +6,11 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
+import com.codeborne.selenide.junit5.TextReportExtension;
 
 /**
  * тесты вопросов с ответами
  */
-@ExtendWith({TextReportExtension.class}) // добавление отчета по времени выполнения тестов
 public class TestQuestions extends BaseTest{
 
     @Test
@@ -27,7 +27,8 @@ public class TestQuestions extends BaseTest{
     public void testQuestion2 (){
         Assert.assertTrue("Ответ совпадает с ожидаемым результатом!" ,new MainPage(BASE_URL).setQuestions("Вопрос-2:"));
     }
-    @Test@DisplayName("Проверка ответа 3")
+    @Test
+    @DisplayName("Проверка ответа 3")
     public void testQuestion3 (){
         Assert.assertTrue("Ответ совпадает с ожидаемым результатом!" ,new MainPage(BASE_URL).setQuestions("Вопрос-3:"));
     }
