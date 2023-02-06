@@ -26,16 +26,18 @@ import java.util.Properties;
 
 public class BaseTest {
 
-    final static String BASE_URL = "https://qa-scooter.praktikum-services.ru/";
+    public final static String BASE_URL = "https://qa-scooter.praktikum-services.ru/";
 
     public void setUp() {
        // WebDriverManager.firefoxdriver().setup(); // Установили настройки драйвера
       //  Configuration.browser = "firefox";
         WebDriverManager.chromedriver().setup(); // Установили настройки драйвера
         Configuration.browser = "chrome";
-        Configuration.driverManagerEnabled = true;
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = false;
+        Configuration.timeout = 10000;
+        Configuration.driverManagerEnabled = true;
+        Configuration.headless = true;
+        Configuration.fastSetValue=true;
     }
 
     @Before

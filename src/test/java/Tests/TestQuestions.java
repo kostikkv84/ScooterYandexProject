@@ -1,10 +1,16 @@
 package Tests;
 
 import Pages.MainPage;
+import com.codeborne.selenide.junit5.TextReportExtension;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+/**
+ * тесты вопросов с ответами
+ */
+@ExtendWith({TextReportExtension.class}) // добавление отчета по времени выполнения тестов
 public class TestQuestions extends BaseTest{
 
     @Test
