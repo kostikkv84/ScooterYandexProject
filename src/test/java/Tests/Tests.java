@@ -5,8 +5,7 @@ import com.codeborne.selenide.Condition;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import com.codeborne.selenide.junit5.TextReportExtension;
-import org.junit.jupiter.api.extension.ExtendWith;
+
 
 
 public class Tests extends BaseTest{

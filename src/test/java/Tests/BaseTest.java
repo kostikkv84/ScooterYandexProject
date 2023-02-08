@@ -8,20 +8,6 @@ import io.github.bonigarcia.seljup.SeleniumJupiter;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
-import java.util.stream.Stream;
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.params.provider.Arguments;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static com.codeborne.selenide.Selenide.*;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.util.Properties;
 
 
 public class BaseTest {
