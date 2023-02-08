@@ -17,8 +17,8 @@ public class BaseTest {
     public void setUp() {
        // WebDriverManager.firefoxdriver().setup(); // Установили настройки драйвера
       //  Configuration.browser = "firefox";
-        WebDriverManager.chromedriver().setup(); // Установили настройки драйвера
-        Configuration.browser = "chrome";
+        WebDriverManager.firefoxdriver().setup(); // Установили настройки драйвера
+        Configuration.browser = "firefox";
         Configuration.browserSize = "1920x1080";
         Configuration.timeout = 10000;
         Configuration.driverManagerEnabled = true;
