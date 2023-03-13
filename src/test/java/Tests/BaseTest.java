@@ -15,8 +15,6 @@ public class BaseTest {
     public final static String BASE_URL = "https://qa-scooter.praktikum-services.ru/";
 
     public void setUp() {
-       // WebDriverManager.firefoxdriver().setup(); // Установили настройки драйвера
-      //  Configuration.browser = "firefox";
         WebDriverManager.firefoxdriver().setup(); // Установили настройки драйвера
         Configuration.browser = "firefox";
         Configuration.browserSize = "1920x1080";
